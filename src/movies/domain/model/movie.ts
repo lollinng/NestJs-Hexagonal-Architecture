@@ -5,8 +5,6 @@ export class Movie {
   releaseDate: Date;
   genre: string;
   rating: number;
-  createdAt: Date;
-  updatedAt: Date;
 
   constructor(
     id: number,
@@ -14,9 +12,7 @@ export class Movie {
     description: string,
     releaseDate: Date,
     genre: string,
-    rating: number,
-    createdAt: Date,
-    updatedAt: Date,
+    rating: number=0,
   ) {
     this.id = id;
     this.title = title;
@@ -24,7 +20,5 @@ export class Movie {
     this.releaseDate = releaseDate;
     this.genre = genre;
     this.rating = rating;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
   }
 }

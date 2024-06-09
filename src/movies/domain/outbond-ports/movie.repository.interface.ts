@@ -7,6 +7,8 @@ export interface IMovieRepository {
   findById(id: number): Promise<Movie | null>;
   update(id: number, movie: Partial<Movie>): Promise<Movie>;
   remove(id: number): Promise<void>;
+  sortByRating(): Promise<Movie[]>;
+
 }
 
 export const IMovieRepository = Symbol('IMovieRepository');

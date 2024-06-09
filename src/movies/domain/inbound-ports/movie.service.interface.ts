@@ -6,7 +6,6 @@ export interface IMovieService {
   findById(id: number): Promise<Movie | null>;
   update(id: number, movie: Partial<Movie>): Promise<Movie>;
   remove(id: number): Promise<void>;
-  rateMovie(id: number, rating: number): Promise<Movie>;
   findByGenre(genre: string): Promise<Movie[]>;
   sortByRating(): Promise<Movie[]>;
 }

@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { MovieEntity } from "./adapters/driven_output/movie.entity";
+import { MovieEntity } from "./adapters/Tyeporm_driven_output/movie.entity";
 import { MovieController } from "./adapters/driving_input/movie.controller";
 import { IMovieService } from "./domain/inbound-ports/movie.service.interface";
 import { MovieService } from "./domain/inbound-ports/movie.service";
 import { IMovieRepository } from "./domain/outbond-ports/movie.repository.interface";
-import { MovieRepository } from "./adapters/driven_output/movie.repository";
+import { MovieRepository } from "./adapters/Tyeporm_driven_output/movie.repository";
 
 @Module({
   imports:[TypeOrmModule.forFeature([MovieEntity])],
@@ -23,5 +23,6 @@ import { MovieRepository } from "./adapters/driven_output/movie.repository";
       useClass:MovieRepository
     }
   ],
+  exports:[IMovieService]
 })
-export class ProductModule {}
+export class MovieModule {}

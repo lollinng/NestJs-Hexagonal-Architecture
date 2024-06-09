@@ -46,9 +46,6 @@ import { UpdateMovieDto } from '../dto/update-movie.dto';
           createMovieDto.description,
           new Date(createMovieDto.releaseDate),
           createMovieDto.genre,
-          createMovieDto.rating,
-          new Date(),
-          new Date(),
         );
   
         const createdMovie = await this.movieService.create(movie);
@@ -59,7 +56,19 @@ import { UpdateMovieDto } from '../dto/update-movie.dto';
         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'An error occurred' });
       }
     }
-  
+    
+    @Get('/sort')
+    async sortByRating(@Res() res: Response) {
+      try {
+        const movies = await this.movieService.sortByRating();
+        this.logger.log(JSON.stringify(movies, null, 2));
+        return res.status(HttpStatus.OK).json(movies);
+      } catch (error) {
+        this.logger.error(error.message, error.stack);
+        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'An error occurred' });
+      }
+    }
+    
     @Get(':id')
     async findById(@Param('id') id: number, @Res() res: Response) {
       try {
@@ -103,20 +112,7 @@ import { UpdateMovieDto } from '../dto/update-movie.dto';
       }
     }
   
-    @Post(':id/rate')
-    async rateMovie(@Param('id') id: number, @Body('rating') rating: number, @Res() res: Response) {
-      try {
-        const ratedMovie = await this.movieService.rateMovie(id, rating);
-        if (!ratedMovie) {
-          return res.status(HttpStatus.NOT_FOUND).json({ message: 'Movie not found' });
-        }
-        this.logger.log(JSON.stringify(ratedMovie, null, 2));
-        return res.status(HttpStatus.OK).json(ratedMovie);
-      } catch (error) {
-        this.logger.error(error.message, error.stack);
-        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'An error occurred' });
-      }
-    }
+  
   
     @Get('/genre/:genre')
     async findByGenre(@Param('genre') genre: string, @Res() res: Response) {
@@ -130,16 +126,6 @@ import { UpdateMovieDto } from '../dto/update-movie.dto';
       }
     }
   
-    @Get('/sort/rating')
-    async sortByRating(@Res() res: Response) {
-      try {
-        const movies = await this.movieService.sortByRating();
-        this.logger.log(JSON.stringify(movies, null, 2));
-        return res.status(HttpStatus.OK).json(movies);
-      } catch (error) {
-        this.logger.error(error.message, error.stack);
-        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'An error occurred' });
-      }
-    }
+    
   }
   

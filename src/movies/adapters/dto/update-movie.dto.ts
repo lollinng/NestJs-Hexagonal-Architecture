@@ -22,6 +22,5 @@ export class UpdateMovieDto {
 
   @IsOptional()
   @IsNumber()
-  @Min(0)
   rating: number;
 }

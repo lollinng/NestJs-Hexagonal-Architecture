@@ -11,7 +11,14 @@ export class MovieService implements IMovieService {
   constructor(
     @Inject(IMovieRepository)
     private readonly movieRepository: IMovieRepository,
+
+    
   ) {}
+
+  sortByRating(): Promise<Movie[]> {
+    return this.movieRepository.sortByRating();
+  }
+
 
   async create(movie: Movie): Promise<Movie> {
     return this.movieRepository.create(movie);
@@ -27,9 +34,7 @@ export class MovieService implements IMovieService {
           movie.description,
           movie.releaseDate,
           movie.genre,
-          movie.rating,
-          movie.createdAt,
-          movie.updatedAt,
+          movie.rating
         ),
     );
   }
@@ -47,22 +52,15 @@ export class MovieService implements IMovieService {
     await this.movieRepository.remove(id);
   }
 
-  async rateMovie(id: number, rating: number): Promise<Movie> {
-    const movie = await this.findById(id);
-    if (!movie) {
-      throw new Error(`Movie with id ${id} not found`);
-    }
-    movie.rating = rating;
-    return this.movieRepository.update(id, movie);
-  }
-
   async findByGenre(genre: string): Promise<Movie[]> {
     const movies = await this.movieRepository.findAll();
     return movies.filter((movie) => movie.genre === genre);
   }
 
-  async sortByRating(): Promise<Movie[]> {
-    const movies = await this.movieRepository.findAll();
-    return movies.sort((a, b) => b.rating - a.rating);
+  
+
+  async updateMovieRating(movieId: number, averageRating: number) {
+    await this.movieRepository.update(movieId, { rating: averageRating });
   }
+
 }

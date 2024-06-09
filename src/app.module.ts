@@ -4,7 +4,9 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { getTypeOrmConfig } from './config/database.config';
-import { ProductModule } from './movies/movies.module';
+import { MovieModule } from './movies/movies.module';
+import { UserModule } from './users/users.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -16,7 +18,9 @@ import { ProductModule } from './movies/movies.module';
       inject: [ConfigService],
       useFactory: getTypeOrmConfig,
     }),
-    ProductModule
+    MovieModule,
+    UserModule,
+    RatingModule
   ],
   controllers: [AppController],
   providers: [AppService],

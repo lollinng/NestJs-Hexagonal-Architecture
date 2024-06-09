@@ -16,8 +16,4 @@ export class CreateMovieDto {
   @IsNotEmpty()
   @IsString()
   genre: string;
-
-  @IsNotEmpty()
-  @IsNumber()
-  rating: number;
 }
