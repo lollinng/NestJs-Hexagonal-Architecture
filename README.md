@@ -169,7 +169,7 @@ src/
     ```
     
 2. Set up the database:
-    - Create a database and update the `ormconfig.json` file with your database configuration.
+    - Create a database and update the `.env` file with your database configuration.
     
 3. Start the application:
     
