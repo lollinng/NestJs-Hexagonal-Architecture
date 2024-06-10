@@ -113,7 +113,7 @@ src/
 
 - **Update Movie**
   - `PUT /movies/:id`
-  - Request Body: `{ "title": "string", "description": "string", "releaseDate": "date", "genre": "string", "rating": "number" }`
+  - Request Body: `{ "title": "string", "description": "string", "releaseDate": "date", "genre": "string"}`
 
 - **Find Movies by Genre**
   - `GET /movies/genre/:genre`
