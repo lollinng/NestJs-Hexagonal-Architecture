@@ -1,73 +1,192 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Movie Database Backend Project
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project is a backend application for managing a movie database. It is built using NestJS and follows the principles of Hexagonal Architecture (also known as Ports and Adapters Architecture). 
+The application provides REST APIs for managing entities:
+1. **movies**
+2. **users**
+3. **ratings**
 
-## Description
+## Hexagonal Architecture
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Hexagonal Architecture, or Ports and Adapters Architecture, is an architectural style that emphasizes separation of concerns and testability. It divides the application into several layers:
 
-## Installation
+1. **Domain Layer**: Contains the business logic of the application. This layer is independent of any external frameworks or technologies.
+2. **Application Layer**: Contains the application logic, orchestrating interactions between the domain layer and external systems.
+3. **Adapters Layer**: Contains the implementations of interfaces defined in the domain layer, facilitating communication with external systems like databases, web services, etc.
 
-```bash
-$ npm install
+### Key Components
+
+- **Inbound Ports**: Interfaces through which the external world interacts with the application (e.g., controllers, services).
+- **Outbound Ports**: Interfaces through which the application interacts with external systems (e.g., repositories, external services).
+
+<br><br>
+![Overview Image](assets\images\image.png)
+<br><br>
+
+## Project structure
+```plaintext
+src/
+|
+├── config/
+│   └── database.config.ts
+| 
+├── movies/
+│   ├── adapters/
+│   │   ├── Typeorm_driven_output/
+│   │   │   └── movie.repository.ts
+│   │   ├── driver_input/
+│   │   │   └── movie.controller.ts
+│   │   └── dto/
+│   │       ├── create-movie.dto.ts
+│   │       └── update-movie.dto.ts
+│   ├── domain/
+│   │   ├── inbound-ports/
+│   │   │   └── movie.service.interface.ts
+│   │   ├── model/
+│   │   │   └── movie.ts
+│   │   └── outbound-ports/
+│   │       └── movie.repository.interface.ts
+│   ├── application/
+│   │   └── movie.service.ts
+│   └── movies.module.ts
+|
+├── users/
+│   ├── adapters/
+│   │   ├── Typeorm_driven_output/
+│   │   │   └── user.repository.ts
+│   │   ├── driver_input/
+│   │   │   └── user.controller.ts
+│   │   └── dto/
+│   │       ├── create-user.dto.ts
+│   │       └── update-user.dto.ts
+│   ├── domain/
+│   │   ├── inbound-ports/
+│   │   │   └── user.service.interface.ts
+│   │   ├── model/
+│   │   │   └── user.ts
+│   │   └── outbound-ports/
+│   │       └── user.repository.interface.ts
+│   ├── application/
+│   │   └── user.service.ts
+│   └── users.module.ts
+|
+├── rating/
+│   ├── adapters/
+│   │   ├── Typeorm_driven_output/
+│   │   │   └── rating.repository.ts
+│   │   ├── driver_input/
+│   │   │   └── rating.controller.ts
+│   │   └── dto/
+│   │       ├── create-rating.dto.ts
+│   │       └── update-rating.dto.ts
+│   ├── domain/
+│   │   ├── inbound-ports/
+│   │   │   └── rating.service.interface.ts
+│   │   ├── model/
+│   │   │   └── rating.ts
+│   │   └── outbound-ports/
+│   │       └── rating.repository.interface.ts
+│   ├── application/
+│   │   └── rating.service.ts
+│   └── rating.module.ts
+|
+├── main.ts
+└── app.module.ts
+
 ```
 
-## Running the app
+## REST APIs
 
-```bash
-# development
-$ npm run start
+### Movies
 
-# watch mode
-$ npm run start:dev
+- **Create Movie**
+  - `POST /movies`
+  - Request Body: `{ "title": "string", "description": "string", "releaseDate": "date", "genre": "string" }`
 
-# production mode
-$ npm run start:prod
-```
+- **Get All Movies**
+  - `GET /movies`
 
-## Test
+- **Get Movie by ID**
+  - `GET /movies/:id`
 
-```bash
-# unit tests
-$ npm run test
+- **Update Movie**
+  - `PUT /movies/:id`
+  - Request Body: `{ "title": "string", "description": "string", "releaseDate": "date", "genre": "string", "rating": "number" }`
 
-# e2e tests
-$ npm run test:e2e
+- **Find Movies by Genre**
+  - `GET /movies/genre/:genre`
 
-# test coverage
-$ npm run test:cov
-```
+- **Sort Movies by Rating**
+  - `GET /movies/sortByRating`
 
-## Support
+### Users
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **Create User**
+  - `POST /users`
+  - Request Body: `{ "username": "string", "email": "string" }`
 
-## Stay in touch
+- **Get All Users**
+  - `GET /users`
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- **Get User by ID**
+  - `GET /users/:id`
+
+- **Update User**
+  - `PUT /users/:id`
+  - Request Body: `{ "username": "string", "email": "string" }`
+
+
+### Ratings
+
+- **Create Rating**
+  - `POST /ratings`
+  - Request Body: `{ "rating": "number", "userId": "number", "movieId": "number" }`
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (>= 14.x)
+- NestJS CLI
+- TypeORM
+- PostgreSQL (or another database supported by TypeORM)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/movie-database-backend.git
+   cd movie-database-backend
+   ```
+
+2. Install dependencies:
+    
+    ```bash
+    npm install
+    ```
+    
+2. Set up the database:
+    - Create a database and update the `ormconfig.json` file with your database configuration.
+    
+3. Start the application:
+    
+    ```bash
+    npm run start:dev
+    ```
+    
+
+### Usage
+
+- Use a tool like Postman to interact with the REST APIs.
+- Refer to the API documentation above for the available endpoints and their expected request bodies.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request for review.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License.

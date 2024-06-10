@@ -1,7 +1,8 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { IMovieService } from './movie.service.interface';
-import { IMovieRepository } from '../outbond-ports/movie.repository.interface';
-import { Movie } from '../model/movie';
+import { IMovieService } from '../domain/inbound-ports/movie.service.interface';
+import { IMovieRepository } from '../domain/outbond-ports/movie.repository.interface';
+import { Movie } from '../domain/model/movie';
+
 
 
 @Injectable()
@@ -46,10 +47,6 @@ export class MovieService implements IMovieService {
   async update(id: number, movie: Partial<Movie>): Promise<Movie> {
     await this.movieRepository.update(id, movie);
     return this.findById(id);
-  }
-
-  async remove(id: number): Promise<void> {
-    await this.movieRepository.remove(id);
   }
 
   async findByGenre(genre: string): Promise<Movie[]> {

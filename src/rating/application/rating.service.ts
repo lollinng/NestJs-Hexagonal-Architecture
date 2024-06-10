@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from "@nestjs/common";
-import { IRatingRepository } from "../outbound-ports/rating.repository.interface";
-import { Rating } from "../model/rating";
+import { IRatingRepository } from "../domain/outbound-ports/rating.repository.interface";
+import { Rating } from "../domain/model/rating";
 
 
 @Injectable()
@@ -16,8 +16,8 @@ export class RatingService {
     return this.ratingRepository.create(rating);
   }
 
-  async findMovie(movieId: Number): Promise<Number> {
-    return this.ratingRepository.findMovie(movieId);
+  async CalcRating(movieId: Number): Promise<Number> {
+    return this.ratingRepository.CalcRating(movieId);
   }
 
 }

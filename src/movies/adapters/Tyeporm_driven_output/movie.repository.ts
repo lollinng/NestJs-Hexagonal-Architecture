@@ -5,7 +5,6 @@ import { Movie } from 'src/movies/domain/model/movie';
 import { MovieEntity } from './movie.entity';
 import { IMovieRepository } from 'src/movies/domain/outbond-ports/movie.repository.interface';
 
-
 @Injectable()
 export class MovieRepository implements IMovieRepository {
   private readonly logger = new Logger(MovieRepository.name);
@@ -69,9 +68,6 @@ export class MovieRepository implements IMovieRepository {
     return this.entityToModel(updatedMovie);
 }
 
-  async remove(id: number): Promise<void> {
-    await this.movieRepository.delete(id);
-  }
 
   async sortByRating(): Promise<Movie[]> {
     const movies = await this.movieRepository.createQueryBuilder('movie')

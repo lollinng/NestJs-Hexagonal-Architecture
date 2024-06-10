@@ -3,7 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./adapters/Tyeporm_driven_output/users.entity";
 import { UserController } from "./adapters/driving_input/user.controllers";
 import { IUserService } from "./domain/inbound-ports/user.service.interface";
-import { UserService } from "./domain/inbound-ports/user.services";
+import { UserService } from "./application/user.services";
 import { IUserRepository } from "./domain/outbond-ports/user.repository.interface";
 import { UserRepository } from "./adapters/Tyeporm_driven_output/user.repository";
 

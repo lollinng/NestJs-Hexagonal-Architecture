@@ -3,7 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { RatingEntity } from "./adapters/Tyeporm_driven_output/rating.entity";
 import { RatingController } from "./adapters/driving_input/rating.controller";
 import { IRatingService } from "./domain/inbound-ports/rating.service.interface";
-import { RatingService } from "./domain/inbound-ports/rating.service";
+import { RatingService } from "./application/rating.service";
 import { IRatingRepository } from "./domain/outbound-ports/rating.repository.interface";
 import { RatingRepository } from "./adapters/Tyeporm_driven_output/rating.repository";
 import { UserModule } from "src/users/users.module";

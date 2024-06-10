@@ -62,10 +62,6 @@ export class UserRepository implements IUserRepository {
     return this.entityToModel(updatedUser);
 }
 
-  async remove(id: number): Promise<void> {
-    await this.repository.delete(id);
-  }
-  
   private entityToModel(userEntity: UserEntity): User {
       return new User(
       userEntity.id,

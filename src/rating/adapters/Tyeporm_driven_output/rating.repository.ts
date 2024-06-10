@@ -14,7 +14,7 @@ export class RatingRepository implements IRatingRepository {
     private readonly ratingRepository: Repository<RatingEntity>,
   ) {}
  
-  async findMovie(movieId: number): Promise<number> {
+  async CalcRating(movieId: number): Promise<number> {
     const ratings = await this.ratingRepository.find({
       where: { movie: { id: Equal(movieId) } },
     })

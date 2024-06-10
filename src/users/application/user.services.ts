@@ -1,7 +1,8 @@
-import { User } from "../model/user";
 import { Inject, Injectable, Logger } from "@nestjs/common";
-import {  IUserService } from "./user.service.interface";
-import { IUserRepository } from "../outbond-ports/user.repository.interface";
+import { IUserService } from "../domain/inbound-ports/user.service.interface";
+import { IUserRepository } from "../domain/outbond-ports/user.repository.interface";
+import { User } from "../domain/model/user";
+
 
 
 @Injectable()
@@ -12,11 +13,6 @@ export class UserService implements IUserService{
     @Inject(IUserRepository)
     private readonly userRepository: IUserRepository,
   ) {}
-  
-  rate(id: number,rating:number,movie_id:number): Promise<number> {
-    
-    throw new Error("Method not implemented.");
-  }
   
   async findAll(): Promise<User[]> {
     const movies = await this.userRepository.findAll();
@@ -43,7 +39,4 @@ export class UserService implements IUserService{
     return this.findById(id);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.userRepository.remove(id);
-  }
 }

@@ -6,7 +6,6 @@ export interface IMovieRepository {
   findAll(): Promise<Movie[]>;
   findById(id: number): Promise<Movie | null>;
   update(id: number, movie: Partial<Movie>): Promise<Movie>;
-  remove(id: number): Promise<void>;
   sortByRating(): Promise<Movie[]>;
 
 }
