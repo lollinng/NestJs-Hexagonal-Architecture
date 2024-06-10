@@ -22,7 +22,7 @@ Hexagonal Architecture, or Ports and Adapters Architecture, is an architectural 
 - **Outbound Ports**: Interfaces through which the application interacts with external systems (e.g., repositories, external services).
 
 <br><br>
-![Overview Image](assets\images\image.png)
+![Overview Image](assets/images/image.png)
 <br><br>
 
 ## Project structure
@@ -182,10 +182,6 @@ src/
 
 - Use a tool like Postman to interact with the REST APIs.
 - Refer to the API documentation above for the available endpoints and their expected request bodies.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request for review.
 
 ## License
 
